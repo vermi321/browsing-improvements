@@ -16,7 +16,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "twitter.js"
+        "twitter.js",
+        "levenshtein.js"
       ],
       "matches": [
         "https://*.twitter.com/*",
