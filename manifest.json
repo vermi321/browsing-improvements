@@ -1,0 +1,42 @@
+{
+  "name": "Safer twitter",
+  "version": "1.8",
+  "manifest_version": 3,
+  "icons": {
+    "32": "icons/32.png",
+    "72": "icons/72.png",
+    "128": "icons/128.png",
+    "512": "icons/512.png"
+  },
+  "permissions": [
+    "scripting",
+    "storage",
+    "activeTab"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "twitter.js"
+      ],
+      "matches": [
+        "https://*.twitter.com/*",
+        "https://*.x.com/*"
+      ]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.twitter.com/*",
+        "https://*.x.com/*"
+      ],
+      "js": [
+        "content-script.js"
+      ],
+      "css": [
+        "twitter.css"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}
