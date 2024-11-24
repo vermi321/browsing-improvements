@@ -1,5 +1,5 @@
 {
-  "name": "Safer twitter",
+  "name": "Browsing improvemnets",
   "version": "1.8",
   "manifest_version": 3,
   "icons": {
@@ -8,36 +8,26 @@
     "128": "icons/128.png",
     "512": "icons/512.png"
   },
-  "permissions": [
-    "scripting",
-    "storage",
-    "activeTab"
-  ],
+  "permissions": ["scripting", "storage", "activeTab", "tabs"],
+  "action": {
+    "default_popup": "src/popup/popup.html"
+  },
   "web_accessible_resources": [
     {
-      "resources": [
-        "twitter.js",
-        "levenshtein.js"
-      ],
-      "matches": [
-        "https://*.twitter.com/*",
-        "https://*.x.com/*"
-      ]
+      "resources": ["src/light-mode/toggle.js"],
+      "matches": ["<all_urls>"]
     }
   ],
   "content_scripts": [
     {
-      "matches": [
-        "https://*.twitter.com/*",
-        "https://*.x.com/*"
-      ],
-      "js": [
-        "content-script.js"
-      ],
-      "css": [
-        "twitter.css"
-      ],
+      "matches": ["https://*.twitter.com/*", "https://*.x.com/*"],
+      "js": ["libs/levenshtein.js", "src/twitter/content-script.js"],
       "run_at": "document_start"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/light-mode/content-script.js"],
+      "run_at": "document_end"
     }
   ]
 }
