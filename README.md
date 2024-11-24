@@ -1,4 +1,5 @@
-# safer-twitter-extension
+# Browsing improvements
 
-#### DefiLlama extension (twitter part)
-https://github.com/DefiLlama/defillama-extension/blob/prod/src/pages/content/components/twitter.tsx
+## Light mode
+
+- Force dark sites to use the light theme.

@@ -1,6 +1,6 @@
 {
-  "name": "Browsing improvemnets",
-  "version": "1.8",
+  "name": "Browsing improvements",
+  "version": "1.9",
   "manifest_version": 3,
   "icons": {
     "32": "icons/32.png",
@@ -19,11 +19,6 @@
     }
   ],
   "content_scripts": [
-    {
-      "matches": ["https://*.twitter.com/*", "https://*.x.com/*"],
-      "js": ["libs/levenshtein.js", "src/twitter/content-script.js"],
-      "run_at": "document_start"
-    },
     {
       "matches": ["<all_urls>"],
       "js": ["src/light-mode/content-script.js"],
