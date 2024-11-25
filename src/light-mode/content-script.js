@@ -15,7 +15,6 @@ async function contentScriptFn() {
       document.documentElement.style.cssText = `
         color-scheme: dark;
         filter: invert(1);
-        height: 1426px;
         background-color: black;
         background-image: none !important;
       `;
@@ -27,14 +26,17 @@ async function contentScriptFn() {
         /* Jupiter */
         .bg-v2-background-page,
         /* Kamino */
-        #root > [class^="_root_"] {
+        #root > [class^="_root_"],
+        [class^="__variant-primary_"] {
           background-color: black !important;
           background-image: none !important;
           background-gradient: none !important;
         }
       `;
       if (!existingStyle) {
-        document.head.appendChild(style);
+        document.addEventListener("DOMContentLoaded", () => {
+          document.head.appendChild(style);
+        });
       }
     } else {
       const style = document.querySelector(`style#${COOKIE_NAME}`);
