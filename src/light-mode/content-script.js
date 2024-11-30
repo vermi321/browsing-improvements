@@ -6,10 +6,11 @@ async function contentScriptFn() {
   window.toggleInvertMode = toggleInvertMode;
 
   // Apply the saved mode
-  applyInvertMode();
+  applyInvertMode(true);
 
-  function applyInvertMode() {
+  function applyInvertMode(initialApply = false) {
     const invertCookieValue = getCookie(COOKIE_NAME);
+    if (initialApply && invertCookieValue !== INVERT_VALUE) return;
     if (invertCookieValue === INVERT_VALUE) {
       document.documentElement.setAttribute("data-theme", "dark");
       document.documentElement.style.cssText = `
@@ -26,8 +27,8 @@ async function contentScriptFn() {
         /* Jupiter */
         .bg-v2-background-page,
         /* Kamino */
-        #root > [class^="_root_"],
-        [class^="__variant-primary_"] {
+        #root > [class*="_root_"],
+        [class*="__variant-primary_"] {
           background-color: black !important;
           background-image: none !important;
           background-gradient: none !important;
@@ -46,15 +47,21 @@ async function contentScriptFn() {
     }
   }
 
+  function setCookie(value) {
+    document.cookie = value
+      ? `${COOKIE_NAME}=${value}; expires=${new Date(
+          Date.now() + 1000 * 60 * 60 * 24 * 365 * 20
+        ).toUTCString()}; path=/;`
+      : `${COOKIE_NAME}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }
+
   function doInvert() {
-    document.cookie = `${COOKIE_NAME}=${INVERT_VALUE}; expires=${new Date(
-      Date.now() + 1000 * 60 * 60 * 24 * 365 * 20
-    ).toUTCString()}; path=/;`;
+    setCookie(INVERT_VALUE);
     applyInvertMode();
   }
 
   function redoInvert() {
-    document.cookie = `${COOKIE_NAME}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    setCookie();
     applyInvertMode();
   }
 
